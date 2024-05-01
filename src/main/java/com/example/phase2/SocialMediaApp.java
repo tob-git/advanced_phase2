@@ -9,7 +9,11 @@ import javafx.stage.Stage;
 import java.io.Serializable;
 
 public class SocialMediaApp extends Application implements Serializable {
-    private Networking networking = new Networking(); // Networking instance
+    private static Networking networking = new Networking(); // Networking instance
+
+    public static Networking getNetworking() {
+        return networking;
+    }
 
     private GridPane createLoginForm(Stage primaryStage, VBox mainLayout) {
         GridPane loginForm = new GridPane();
@@ -23,8 +27,8 @@ public class SocialMediaApp extends Application implements Serializable {
 
         loginButton.setOnAction(e -> {
             try {
-                User user = networking.loginUser(usernameField.getText(), passwordField.getText());
-                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Login Successful! Welcome, " + user.getUsername());
+                User C_user = networking.loginUser(usernameField.getText(), passwordField.getText());
+                Alert alert = new Alert(Alert.AlertType.INFORMATION, "Login Successful! Welcome, " + C_user.getUsername());
                 alert.show();
             } catch (IllegalArgumentException ex) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());

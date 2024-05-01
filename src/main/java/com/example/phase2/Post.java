@@ -36,12 +36,14 @@ public class Post implements Serializable {
     public void addComment(User commenter, String text) {
         Comment newComment = new Comment(commenter, text);
         comments.add(newComment);
+        Database.update(SocialMediaApp.getNetworking().getUsers());
     }
 
     // Method to like a post
     public void toggleLike(User user) {
         if (!likes.add(user)) {
             likes.remove(user);
+            Database.update(SocialMediaApp.getNetworking().getUsers());
         }
     }
 

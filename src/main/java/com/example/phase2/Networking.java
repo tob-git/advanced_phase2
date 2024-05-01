@@ -47,24 +47,7 @@ public class Networking implements Serializable {
         public boolean registerUser(String username, String bio, String profilePicUrl, String Password) {
             if (!users.containsKey(username)) {
                 users.put(username, new User(username, bio, profilePicUrl, Password));
-                try {
-                    FileOutputStream myFileOutStream
-                            = new FileOutputStream(
-                            "/Users/mohamdtobgi/spring 2024/advanced programming/phase2/data.txt");
-
-                    ObjectOutputStream myObjectOutStream
-                            = new ObjectOutputStream(myFileOutStream);
-
-                    myObjectOutStream.writeObject(users);
-
-                    // closing FileOutputStream and
-                    // ObjectOutputStream
-                    myObjectOutStream.close();
-                    myFileOutStream.close();
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Database.update(users);
             return true;
             }
             return false; // User already exists

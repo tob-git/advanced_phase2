@@ -14,6 +14,7 @@ public class Comment implements Serializable{
         this.commenter = commenter;
         this.text = text;
         this.time = LocalDateTime.now();
+        Database.update(SocialMediaApp.getNetworking().getUsers());
     }
 
     private void validate(User commenter, String text) {

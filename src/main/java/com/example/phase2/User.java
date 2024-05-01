@@ -50,12 +50,15 @@ public class User implements Serializable {
     public void addFriend(User friend) {
         if (!friends.contains(friend)) {
             friends.add(friend);
+            Database.update(SocialMediaApp.getNetworking().getUsers());
         }
+
     }
 
     public Post createPost(String content) {
         Post newPost = new Post(this, content);
         posts.add(newPost);
+        Database.update(SocialMediaApp.getNetworking().getUsers());
         return newPost;
     }
     @Override

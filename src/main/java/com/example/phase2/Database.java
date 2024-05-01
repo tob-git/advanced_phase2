@@ -1,0 +1,33 @@
+package com.example.phase2;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.Map;
+
+public class Database {
+
+    public static void update(Map object) {
+        try {
+            FileOutputStream myFileOutStream
+                    = new FileOutputStream(
+                    "/Users/mohamdtobgi/spring 2024/advanced programming/phase2/data.txt");
+
+            ObjectOutputStream myObjectOutStream
+                    = new ObjectOutputStream(myFileOutStream);
+
+            myObjectOutStream.writeObject(object);
+
+            // closing FileOutputStream and
+            // ObjectOutputStream
+            myObjectOutStream.close();
+            myFileOutStream.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
