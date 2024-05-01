@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6006537-081f-443d-ac75-b41f0213626e" name="Changes" comment="database addition">
+    <list default="true" id="b6006537-081f-443d-ac75-b41f0213626e" name="Changes" comment="data.txt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Comment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/Networking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Networking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/ObjectSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/SocialMediaApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/SocialMediaApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +69,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714499318491</updated>
-      <workItem from="1714499319699" duration="12197000" />
+      <workItem from="1714499319699" duration="13102000" />
     </task>
     <task id="LOCAL-00001" summary="first changes">
       <option name="closed" value="true" />
@@ -92,7 +87,23 @@
       <option name="project" value="LOCAL" />
       <updated>1714560725938</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="database that actually works">
+      <option name="closed" value="true" />
+      <created>1714582672917</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1714582672917</updated>
+    </task>
+    <task id="LOCAL-00004" summary="data.txt">
+      <option name="closed" value="true" />
+      <created>1714582721355</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1714582721355</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -102,6 +113,8 @@
     <MESSAGE value="first changes" />
     <MESSAGE value="database" />
     <MESSAGE value="database addition" />
-    <option name="LAST_COMMIT_MESSAGE" value="database addition" />
+    <MESSAGE value="database that actually works" />
+    <MESSAGE value="data.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="data.txt" />
   </component>
 </project>
