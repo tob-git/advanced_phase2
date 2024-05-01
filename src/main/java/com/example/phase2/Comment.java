@@ -2,8 +2,9 @@ package com.example.phase2;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.io.Serializable;
 
-public class Comment {
+public class Comment implements Serializable{
     private final User commenter;
     private String text;
     private final LocalDateTime time;

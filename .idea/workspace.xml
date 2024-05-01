@@ -4,29 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6006537-081f-443d-ac75-b41f0213626e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Comment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/HelloController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Networking.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Post.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/SocialMediaApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/phase2/hello-view.fxml" afterDir="false" />
+    <list default="true" id="b6006537-081f-443d-ac75-b41f0213626e" name="Changes" comment="first changes">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/ObjectSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/Networking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Networking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/SocialMediaApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/SocialMediaApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -49,6 +47,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Application.SocialMediaApp.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -76,36 +75,24 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1714499318491</updated>
-      <workItem from="1714499319699" duration="1562000" />
+      <workItem from="1714499319699" duration="8853000" />
     </task>
+    <task id="LOCAL-00001" summary="first changes">
+      <option name="closed" value="true" />
+      <created>1714501792962</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714501792962</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/phase2/SocialMediaApp.java</url>
-          <line>10</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/phase2/Networking.java</url>
-          <line>16</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/phase2/SocialMediaApp.java</url>
-          <line>87</line>
-          <properties class="com.example.phase2.SocialMediaApp" method="start">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="first changes" />
   </component>
 </project>

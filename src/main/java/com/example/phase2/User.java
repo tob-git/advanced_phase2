@@ -2,8 +2,9 @@ package com.example.phase2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable;
 
-public class User {
+public class User implements Serializable {
     private final String username;
     private String bio;
     private String profilePictureUrl;

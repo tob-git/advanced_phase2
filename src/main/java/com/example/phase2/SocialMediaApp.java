@@ -6,8 +6,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.io.Serializable;
 
-public class SocialMediaApp extends Application {
+public class SocialMediaApp extends Application implements Serializable {
     private Networking networking = new Networking(); // Networking instance
 
     private GridPane createLoginForm(Stage primaryStage, VBox mainLayout) {
@@ -54,15 +55,12 @@ public class SocialMediaApp extends Application {
 
         signUpButton.setOnAction(e -> {
             try {
-                System.out.println("11111111111111111111");
                 boolean registered = networking.registerUser(usernameField.getText(), bioField.getText(), profilePicUrlField.getText(), passwordField.getText());
-                System.out.println("11111111111111111111");
                 if (registered) {
-                    System.out.println("22222222222222222222");
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "Registration Successful!");
                     alert.show();
+                    mainLayout.getChildren().setAll(createLoginForm(primaryStage, mainLayout));
                 } else {
-                    System.out.println("33333333333333333333");
                     Alert alert = new Alert(Alert.AlertType.ERROR, "Registration Failed: User already exists.");
                     alert.show();
                 }
