@@ -5,9 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.io.Serializable;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.ObjectInputStream;
 
 public class Networking implements Serializable {
@@ -28,12 +26,10 @@ public class Networking implements Serializable {
 
         catch (IOException obj1) {
             obj1.printStackTrace();
-            return;
         }
         catch (ClassNotFoundException obj2) {
             System.out.println("Class not found");
             obj2.printStackTrace();
-            return;
         }
 
     }

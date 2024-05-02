@@ -12,7 +12,7 @@ public class Database {
         try {
             FileOutputStream myFileOutStream
                     = new FileOutputStream(
-                    "/Users/mohamdtobgi/spring 2024/advanced programming/phase2/data.txt");
+                    "data.txt");
 
             ObjectOutputStream myObjectOutStream
                     = new ObjectOutputStream(myFileOutStream);
