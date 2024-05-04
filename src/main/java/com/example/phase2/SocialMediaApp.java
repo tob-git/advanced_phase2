@@ -15,6 +15,8 @@ import java.util.*;
 public class SocialMediaApp extends Application implements Serializable {
     private static final Networking networking = new Networking(); // Networking instance
     private User currentUser;
+    private Scene loginScene;
+    private Scene postsScene;
 
     // Fields for post and friend operations
     private TextField postContentField = new TextField();
@@ -25,7 +27,7 @@ public class SocialMediaApp extends Application implements Serializable {
         return networking;
     }
 
-    private VBox createLoginForm(Stage primaryStage, VBox mainLayout) {
+    private VBox createLoginForm(Stage primaryStage) {
         VBox loginForm = new VBox(10);
         loginForm.setPadding(new Insets(20, 20, 20, 20));
         loginForm.setAlignment(Pos.CENTER);
@@ -43,13 +45,13 @@ public class SocialMediaApp extends Application implements Serializable {
         loginButton.setOnAction(e -> {
             try {
                 currentUser = networking.loginUser(usernameField.getText(), passwordField.getText());
-                showFriendsPosts(primaryStage, mainLayout);
+                showFriendsPosts(primaryStage);
             } catch (IllegalArgumentException ex) {
                 showAlert(Alert.AlertType.ERROR, "Login Error", ex.getMessage());
             }
         });
 
-        switchToSignUp.setOnAction(e -> mainLayout.getChildren().setAll(createSignUpForm(primaryStage, mainLayout)));
+        switchToSignUp.setOnAction(e -> primaryStage.setScene(new Scene(createSignUpForm(primaryStage), 400, 300)));
 
         loginForm.getChildren().addAll(new Label("Username:"), usernameField,
                 new Label("Password:"), passwordField, loginButton, switchToSignUp);
@@ -57,7 +59,7 @@ public class SocialMediaApp extends Application implements Serializable {
         return loginForm;
     }
 
-    private VBox createSignUpForm(Stage primaryStage, VBox mainLayout) {
+    private VBox createSignUpForm(Stage primaryStage) {
         VBox signUpForm = new VBox(10);
         signUpForm.setPadding(new Insets(20, 20, 20, 20));
         signUpForm.setAlignment(Pos.CENTER);
@@ -81,7 +83,7 @@ public class SocialMediaApp extends Application implements Serializable {
                 boolean registered = networking.registerUser(usernameField.getText(), bioField.getText(), profilePicUrlField.getText(), passwordField.getText());
                 if (registered) {
                     showAlert(Alert.AlertType.INFORMATION, "Registration Success", "Registration Successful!");
-                    mainLayout.getChildren().setAll(createLoginForm(primaryStage, mainLayout));
+                    primaryStage.setScene(new Scene(createLoginForm(primaryStage), 400, 300));
                 } else {
                     showAlert(Alert.AlertType.ERROR, "Registration Failed", "User already exists.");
                 }
@@ -90,7 +92,7 @@ public class SocialMediaApp extends Application implements Serializable {
             }
         });
 
-        switchToLogin.setOnAction(e -> mainLayout.getChildren().setAll(createLoginForm(primaryStage, mainLayout)));
+        switchToLogin.setOnAction(e -> primaryStage.setScene(new Scene(createLoginForm(primaryStage), 400, 300)));
 
         signUpForm.getChildren().addAll(new Label("Username:"), usernameField,
                 new Label("Password:"), passwordField, new Label("Bio:"), bioField,
@@ -99,7 +101,8 @@ public class SocialMediaApp extends Application implements Serializable {
         return signUpForm;
     }
 
-    private VBox createFriendsPostsView(Stage primaryStage, VBox mainLayout) {
+    private VBox createFriendsPostsView(Stage primaryStage) {
+        postsLayout.getChildren().clear(); // Clear previous elements
         postsLayout.setPadding(new Insets(20, 20, 20, 20));
 
         // Create Post components
@@ -113,7 +116,6 @@ public class SocialMediaApp extends Application implements Serializable {
                 currentUser.createPost(content);
                 postContentField.clear();
                 updateFriendsPostsView(postsLayout);
-                showAlert(Alert.AlertType.INFORMATION, "Post Success", "Post created successfully!");
             } catch (IllegalArgumentException ex) {
                 showAlert(Alert.AlertType.ERROR, "Post Error", ex.getMessage());
             }
@@ -127,7 +129,7 @@ public class SocialMediaApp extends Application implements Serializable {
         addFriendButton.setOnAction(e -> {
             try {
                 User friend = networking.getUser(friendUsernameField.getText());
-                if (friendUsernameField.getText().matches(currentUser.getUsername())){
+                if (friendUsernameField.getText().matches(currentUser.getUsername())) {
                     throw new IllegalArgumentException("You cannot add yourself as a friend.");
                 }
                 currentUser.addFriend(friend);
@@ -141,18 +143,34 @@ public class SocialMediaApp extends Application implements Serializable {
 
         VBox postAndFriendBox = new VBox(10, postContentField, createPostButton, friendUsernameField, addFriendButton);
         postAndFriendBox.setAlignment(Pos.CENTER);
-        postsLayout.getChildren().add(0, postAndFriendBox);
+        postsLayout.getChildren().add(postAndFriendBox);
 
         // Update and display posts
         updateFriendsPostsView(postsLayout);
 
         // Logout button
         Button logoutButton = new Button("Logout");
-        logoutButton.setOnAction(e -> mainLayout.getChildren().setAll(createLoginForm(primaryStage, mainLayout)));
-        postsLayout.getChildren().add(logoutButton);
+        logoutButton.setOnAction(e -> {
+            try {
+                // Clear current user
+                currentUser = null;
+
+                // Clear the current root before switching to login scene
+                postsLayout.getScene().setRoot(new VBox());
+
+                // Switch to login/signup page
+                primaryStage.setScene(loginScene);
+            } catch (Exception ex) {
+                showAlert(Alert.AlertType.ERROR, "Logout Error", ex.getMessage());
+            }
+        });
+
+        logoutButton.setAlignment(Pos.BOTTOM_RIGHT);
+        postsLayout.getChildren().add(logoutButton); // Add the logout button at the bottom
 
         return postsLayout;
     }
+
 
     private void updateFriendsPostsView(VBox postsLayout) {
         postsLayout.getChildren().removeIf(node -> node instanceof VBox && !node.equals(postContentField.getParent()));
@@ -176,35 +194,41 @@ public class SocialMediaApp extends Application implements Serializable {
             String commentContent = commentField.getText();
             post.addComment(currentUser, commentContent);
             commentField.clear();
-            showAlert(Alert.AlertType.INFORMATION, "Comment Success", "Comment added successfully!");
+            updateFriendsPostsView(postsLayout); // refresh the view to show the new comment
         });
 
         Button likeButton = new Button();
         post.isLiked(currentUser, likeButton);
         likeButton.setOnAction(e -> post.toggleLike(currentUser, likeButton));
 
+        VBox commentsBox = new VBox(5);
+        for (Comment comment : post.getComments()) {
+            Label commentLabel = new Label(comment.getCommenter().getUsername() + ": " + comment.getText());
+            commentsBox.getChildren().add(commentLabel);
+        }
+
         HBox commentBox = new HBox(5, commentField, commentButton);
         commentBox.setAlignment(Pos.CENTER_LEFT);
         HBox postBox = new HBox(10, postLabel, likeButton);
         postBox.setAlignment(Pos.CENTER_LEFT);
-        VBox postWithComments = new VBox(10, postBox, commentBox);
+        VBox postWithComments = new VBox(10, postBox, commentsBox, commentBox);
         postWithComments.setPadding(new Insets(10, 10, 10, 10));
         postWithComments.setStyle("-fx-border-color: #ddd; -fx-border-radius: 5; -fx-padding: 10;");
         postsLayout.getChildren().add(postWithComments);
     }
 
-    private void showFriendsPosts(Stage primaryStage, VBox mainLayout) {
-        VBox postsLayout = createFriendsPostsView(primaryStage, mainLayout);
-        Scene postsScene = new Scene(postsLayout, 500, 500);
+    private void showFriendsPosts(Stage primaryStage) {
+        VBox postsLayout = createFriendsPostsView(primaryStage);
+        postsScene = new Scene(postsLayout, 500, 500);
         primaryStage.setScene(postsScene);
     }
 
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Social Media Platform");
-        VBox mainLayout = new VBox();
-        mainLayout.getChildren().add(createLoginForm(primaryStage, mainLayout));
-        primaryStage.setScene(new Scene(mainLayout, 400, 300));
+        VBox mainLayout = createLoginForm(primaryStage);
+        loginScene = new Scene(mainLayout, 400, 300);
+        primaryStage.setScene(loginScene);
         primaryStage.show();
     }
 
