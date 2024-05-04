@@ -52,6 +52,9 @@ public class User implements Serializable {
             friends.add(friend);
             Database.update(SocialMediaApp.getNetworking().getUsers());
         }
+        else {
+            throw new IllegalArgumentException("you are already friends :)");
+        }
 
     }
 

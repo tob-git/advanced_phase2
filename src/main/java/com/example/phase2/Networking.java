@@ -13,7 +13,7 @@ public class Networking implements Serializable {
 
     public Networking() {
         try {
-            FileInputStream fileInput = new FileInputStream("data.txt");
+            FileInputStream fileInput = new FileInputStream("/Users/mohamdtobgi/spring 2024/advanced programming/phase2/data.txt");
 
             ObjectInputStream objectInput
                     = new ObjectInputStream(fileInput);

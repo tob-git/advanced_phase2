@@ -1,5 +1,7 @@
 package com.example.phase2;
 
+import javafx.scene.control.Button;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,15 +42,27 @@ public class Post implements Serializable {
     }
 
     // Method to like a post
-    public void toggleLike(User user) {
+    public void toggleLike(User user, Button likeButton) {
+        likeButton.setText("Liked");
+        likeButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
         if (!likes.add(user)) {
             likes.remove(user);
-            Database.update(SocialMediaApp.getNetworking().getUsers());
+            likeButton.setText("Like");
+            likeButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+
         }
+        Database.update(SocialMediaApp.getNetworking().getUsers());
     }
 
-    public boolean isLiked(User user) {
-        return likes.contains(user);
+    public void isLiked(User user, Button likeButton) {
+        if (likes.contains(user)){
+            likeButton.setText("Liked");
+            likeButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+        }
+        else {
+            likeButton.setText("Like");
+            likeButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
+        }
     }
 
     // Getters
