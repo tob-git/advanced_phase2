@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.io.Serializable;
 
-public class Comment implements Serializable{
+public class Comment implements Serializable, Comparable<Comment> {
     private final User commenter;
     private String text;
     private final LocalDateTime time;
@@ -46,6 +46,10 @@ public class Comment implements Serializable{
                 ", text='" + text + '\'' +
                 ", time=" + formattedTime +
                 '}';
+    }
+
+    public int compareTo(Comment other) {
+        return this.time.compareTo(other.time);
     }
 }
 

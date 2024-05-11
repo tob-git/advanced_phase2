@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 import java.io.Serializable;
 
-public class Post implements Serializable {
+public class Post implements Serializable, Comparable<Post> {
     private final User author;
     private String content;
     private List<Comment> comments;
@@ -43,13 +43,8 @@ public class Post implements Serializable {
 
     // Method to like a post
     public void toggleLike(User user, Button likeButton) {
-        likeButton.setText("Liked");
-        likeButton.setStyle("-fx-background-color: red; -fx-text-fill: white;");
         if (!likes.add(user)) {
             likes.remove(user);
-            likeButton.setText("Like");
-            likeButton.setStyle("-fx-background-color: white; -fx-text-fill: black;");
-
         }
         Database.update(SocialMediaApp.getNetworking().getUsers());
     }
@@ -102,5 +97,8 @@ public class Post implements Serializable {
                 ", likes=" + likes.size() +
                 ", time=" + formattedTime +
                 '}';
+    }
+    public int compareTo(Post other) {
+        return this.time.compareTo(other.time);
     }
 }

@@ -6,14 +6,18 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class FriendsPostsViewBuilder {
 
     public static VBox build(Stage primaryStage, SocialMediaApp app, User currentUser, VBox postsLayout) {
         postsLayout.setPadding(new Insets(10));
-        postsLayout.getChildren().clear();  // Clear previous elements if any
+        postsLayout.getChildren().clear();
 
-        // Creating the static components for posting and adding friends
+
+
         TextField postContentField = new TextField();
         postContentField.setPromptText("What's on your mind?");
 
@@ -79,11 +83,11 @@ public class FriendsPostsViewBuilder {
 
     private static void updateFriendsPostsView(VBox postsLayout, User currentUser, SocialMediaApp app) {
         postsLayout.getChildren().clear();  // Clear previous posts
-        for (User friend : currentUser.getFriends()) {
-            for (Post post : friend.getPosts()) {
-                addPostUI(postsLayout, friend, post, currentUser, app);
-            }
-        }
+
+        currentUser.getFriends().stream()  // Stream of friends
+                .flatMap(friend -> friend.getPosts().stream())  // Stream of all posts from all friends
+                .sorted(Comparator.comparing(Post::getTime).reversed())  // Sort by time, newest first
+                .forEach(post -> addPostUI(postsLayout, post.getAuthor(), post, currentUser, app));  // Add posts to UI
     }
 
     private static void addPostUI(VBox postsLayout, User friend, Post post, User currentUser, SocialMediaApp app) {
@@ -100,14 +104,19 @@ public class FriendsPostsViewBuilder {
             updateFriendsPostsView(postsLayout, currentUser, app);
         });
 
-        Button likeButton = new Button("Like");
+        Button likeButton = new Button();
+        post.isLiked(currentUser, likeButton);
         likeButton.setOnAction(e -> {
             post.toggleLike(currentUser, likeButton);
-            updateFriendsPostsView(postsLayout, currentUser, app);  // refresh to show like status change
+            updateFriendsPostsView(postsLayout, currentUser, app);  // Refresh to show like status change
         });
 
         VBox commentsBox = new VBox(5);
-        for (Comment comment : post.getComments()) {
+        List<Comment> sortedComments = post.getComments().stream()
+                .sorted(Comparator.comparing(Comment::getTime).reversed())
+                .toList();
+
+        for (Comment comment : sortedComments) {
             Label commentLabel = new Label(comment.getCommenter().getUsername() + ": " + comment.getText());
             commentsBox.getChildren().add(commentLabel);
         }
@@ -124,5 +133,8 @@ public class FriendsPostsViewBuilder {
 
         postsLayout.getChildren().add(postWithComments);
     }
+
+
+
 }
 
