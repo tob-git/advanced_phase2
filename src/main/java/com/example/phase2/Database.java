@@ -11,16 +11,13 @@ public class Database {
     public static void update(Map object) {
         try {
             FileOutputStream myFileOutStream
-                    = new FileOutputStream(
-                    "data.txt");
+                    = new FileOutputStream("data.txt");
 
             ObjectOutputStream myObjectOutStream
                     = new ObjectOutputStream(myFileOutStream);
 
             myObjectOutStream.writeObject(object);
 
-            // closing FileOutputStream and
-            // ObjectOutputStream
             myObjectOutStream.close();
             myFileOutStream.close();
         }

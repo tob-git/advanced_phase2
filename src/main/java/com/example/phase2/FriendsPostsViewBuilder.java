@@ -1,0 +1,128 @@
+package com.example.phase2;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+public class FriendsPostsViewBuilder {
+
+    public static VBox build(Stage primaryStage, SocialMediaApp app, User currentUser, VBox postsLayout) {
+        postsLayout.setPadding(new Insets(10));
+        postsLayout.getChildren().clear();  // Clear previous elements if any
+
+        // Creating the static components for posting and adding friends
+        TextField postContentField = new TextField();
+        postContentField.setPromptText("What's on your mind?");
+
+        Button createPostButton = new Button("Create Post");
+        createPostButton.setOnAction(e -> handleCreatePost(postContentField, postsLayout, currentUser, app));
+
+        TextField friendUsernameField = new TextField();
+        friendUsernameField.setPromptText("Enter friend's username");
+
+        Button addFriendButton = new Button("Add Friend");
+        addFriendButton.setOnAction(e -> handleAddFriend(friendUsernameField, postsLayout, currentUser, app));
+
+
+        VBox postAndFriendBox = new VBox(10, postContentField, createPostButton, friendUsernameField, addFriendButton);
+        postAndFriendBox.setAlignment(Pos.CENTER);
+
+        // Setting up the scrollable area for posts
+        ScrollPane scrollPane = new ScrollPane(postsLayout);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+        VBox container = new VBox(postAndFriendBox, scrollPane);
+        container.setPadding(new Insets(10));
+        container.setAlignment(Pos.CENTER);
+
+        // Logout button
+        Button logoutButton = new Button("Logout");
+        logoutButton.setOnAction(e -> app.logout(primaryStage));
+        container.getChildren().add(logoutButton);  // Add the logout button at the bottom
+
+        // Initial loading of posts
+        updateFriendsPostsView(postsLayout, currentUser, app);
+
+        return container;
+    }
+
+    private static void handleCreatePost(TextField postContentField, VBox postsLayout, User currentUser, SocialMediaApp app) {
+        String content = postContentField.getText();
+        if (!content.isEmpty()) {
+            currentUser.createPost(content);
+            postContentField.clear();
+            updateFriendsPostsView(postsLayout, currentUser, app);
+        }
+    }
+
+    private static void handleAddFriend(TextField friendUsernameField, VBox postsLayout, User currentUser, SocialMediaApp app) {
+        String friendUsername = friendUsernameField.getText();
+        if (!friendUsername.isEmpty() && !friendUsername.equals(currentUser.getUsername())) {
+            try {
+                User friend = SocialMediaApp.getNetworking().getUser(friendUsername);
+                currentUser.addFriend(friend);
+                friendUsernameField.clear();
+                updateFriendsPostsView(postsLayout, currentUser, app);
+                app.showAlert(Alert.AlertType.INFORMATION, "Friend Added", "Friend added successfully!");
+            } catch (IllegalArgumentException ex) {
+                app.showAlert(Alert.AlertType.ERROR, "Add Friend Error", ex.getMessage());
+            }
+        } else {
+            app.showAlert(Alert.AlertType.ERROR, "Invalid Input", "Invalid username or cannot add yourself.");
+        }
+    }
+
+
+    private static void updateFriendsPostsView(VBox postsLayout, User currentUser, SocialMediaApp app) {
+        postsLayout.getChildren().clear();  // Clear previous posts
+        for (User friend : currentUser.getFriends()) {
+            for (Post post : friend.getPosts()) {
+                addPostUI(postsLayout, friend, post, currentUser, app);
+            }
+        }
+    }
+
+    private static void addPostUI(VBox postsLayout, User friend, Post post, User currentUser, SocialMediaApp app) {
+        Label postLabel = new Label(friend.getUsername() + ": " + post.getContent());
+
+        TextField commentField = new TextField();
+        commentField.setPromptText("Enter a comment");
+
+        Button commentButton = new Button("Comment");
+        commentButton.setOnAction(e -> {
+            String commentContent = commentField.getText();
+            post.addComment(currentUser, commentContent);
+            commentField.clear();
+            updateFriendsPostsView(postsLayout, currentUser, app);
+        });
+
+        Button likeButton = new Button("Like");
+        likeButton.setOnAction(e -> {
+            post.toggleLike(currentUser, likeButton);
+            updateFriendsPostsView(postsLayout, currentUser, app);  // refresh to show like status change
+        });
+
+        VBox commentsBox = new VBox(5);
+        for (Comment comment : post.getComments()) {
+            Label commentLabel = new Label(comment.getCommenter().getUsername() + ": " + comment.getText());
+            commentsBox.getChildren().add(commentLabel);
+        }
+
+        HBox commentBox = new HBox(5, commentField, commentButton);
+        commentBox.setAlignment(Pos.CENTER_LEFT);
+
+        HBox postBox = new HBox(10, postLabel, likeButton);
+        postBox.setAlignment(Pos.CENTER_LEFT);
+
+        VBox postWithComments = new VBox(10, postBox, commentsBox, commentBox);
+        postWithComments.setPadding(new Insets(10));
+        postWithComments.setStyle("-fx-border-color: #ddd; -fx-border-radius: 5; -fx-padding: 10;");
+
+        postsLayout.getChildren().add(postWithComments);
+    }
+}
+
