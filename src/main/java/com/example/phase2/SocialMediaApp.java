@@ -1,8 +1,6 @@
 package com.example.phase2;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
@@ -14,7 +12,7 @@ public class SocialMediaApp extends Application implements Serializable {
     private static final Networking networking = new Networking();
     private User currentUser;
     private Scene loginScene;
-    private Scene postsScene;
+    protected Scene postsScene;
     private final VBox postsLayout = new VBox(15);
 
     public static Networking getNetworking() {
@@ -61,7 +59,7 @@ public class SocialMediaApp extends Application implements Serializable {
     }
 
     private void showFriendsPosts(Stage primaryStage) {
-        VBox friendsPostsView = FriendsPostsViewBuilder.build(primaryStage, this, currentUser, postsLayout);
+        VBox friendsPostsView = Home.build(primaryStage, this, currentUser, postsLayout);
         postsScene = new Scene(friendsPostsView, 500, 500);
         primaryStage.setScene(postsScene);
     }

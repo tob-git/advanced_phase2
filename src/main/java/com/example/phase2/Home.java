@@ -8,14 +8,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class FriendsPostsViewBuilder {
+
+public class Home {
 
     public static VBox build(Stage primaryStage, SocialMediaApp app, User currentUser, VBox postsLayout) {
         postsLayout.setPadding(new Insets(10));
         postsLayout.getChildren().clear();
-
 
 
         TextField postContentField = new TextField();
@@ -43,10 +42,17 @@ public class FriendsPostsViewBuilder {
         container.setPadding(new Insets(10));
         container.setAlignment(Pos.CENTER);
 
+        // Inside build method or any other relevant place in FriendsPostsViewBuilder
+        Button profileButton = new Button("Profile");
+        profileButton.setOnAction(e -> UserProfileView.showUserProfile(primaryStage, currentUser, app));
+        container.getChildren().add(profileButton);
+
+
         // Logout button
         Button logoutButton = new Button("Logout");
         logoutButton.setOnAction(e -> app.logout(primaryStage));
         container.getChildren().add(logoutButton);  // Add the logout button at the bottom
+
 
         // Initial loading of posts
         updateFriendsPostsView(postsLayout, currentUser, app);
@@ -133,8 +139,6 @@ public class FriendsPostsViewBuilder {
 
         postsLayout.getChildren().add(postWithComments);
     }
-
-
 
 }
 
