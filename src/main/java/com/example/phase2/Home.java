@@ -21,13 +21,13 @@ public class Home {
         postContentField.setPromptText("What's on your mind?");
 
         Button createPostButton = new Button("Create Post");
-        createPostButton.setOnAction(e -> handleCreatePost(postContentField, postsLayout, currentUser, app));
+        createPostButton.setOnAction(e -> handleCreatePost(postContentField, postsLayout, currentUser, app,primaryStage));
 
         TextField friendUsernameField = new TextField();
         friendUsernameField.setPromptText("Enter friend's username");
 
         Button addFriendButton = new Button("Add Friend");
-        addFriendButton.setOnAction(e -> handleAddFriend(friendUsernameField, postsLayout, currentUser, app));
+        addFriendButton.setOnAction(e -> handleAddFriend(friendUsernameField, postsLayout, currentUser, app, primaryStage));
 
 
         VBox postAndFriendBox = new VBox(10, postContentField, createPostButton, friendUsernameField, addFriendButton);
@@ -55,28 +55,28 @@ public class Home {
 
 
         // Initial loading of posts
-        updateFriendsPostsView(postsLayout, currentUser, app);
+        updateFriendsPostsView(postsLayout, currentUser, app, primaryStage);
 
         return container;
     }
 
-    private static void handleCreatePost(TextField postContentField, VBox postsLayout, User currentUser, SocialMediaApp app) {
+    private static void handleCreatePost(TextField postContentField, VBox postsLayout, User currentUser, SocialMediaApp app, Stage primaryStage) {
         String content = postContentField.getText();
         if (!content.isEmpty()) {
             currentUser.createPost(content);
             postContentField.clear();
-            updateFriendsPostsView(postsLayout, currentUser, app);
+            updateFriendsPostsView(postsLayout, currentUser, app, primaryStage);
         }
     }
 
-    private static void handleAddFriend(TextField friendUsernameField, VBox postsLayout, User currentUser, SocialMediaApp app) {
+    private static void handleAddFriend(TextField friendUsernameField, VBox postsLayout, User currentUser, SocialMediaApp app, Stage primaryStage) {
         String friendUsername = friendUsernameField.getText();
         if (!friendUsername.isEmpty() && !friendUsername.equals(currentUser.getUsername())) {
             try {
                 User friend = SocialMediaApp.getNetworking().getUser(friendUsername);
                 currentUser.addFriend(friend);
                 friendUsernameField.clear();
-                updateFriendsPostsView(postsLayout, currentUser, app);
+                updateFriendsPostsView(postsLayout, currentUser, app, primaryStage);
                 app.showAlert(Alert.AlertType.INFORMATION, "Friend Added", "Friend added successfully!");
             } catch (IllegalArgumentException ex) {
                 app.showAlert(Alert.AlertType.ERROR, "Add Friend Error", ex.getMessage());
@@ -87,18 +87,21 @@ public class Home {
     }
 
 
-    private static void updateFriendsPostsView(VBox postsLayout, User currentUser, SocialMediaApp app) {
+    private static void updateFriendsPostsView(VBox postsLayout, User currentUser, SocialMediaApp app, Stage primaryStage) {
         postsLayout.getChildren().clear();  // Clear previous posts
 
         currentUser.getFriends().stream()  // Stream of friends
                 .flatMap(friend -> friend.getPosts().stream())  // Stream of all posts from all friends
                 .sorted(Comparator.comparing(Post::getTime).reversed())  // Sort by time, newest first
-                .forEach(post -> addPostUI(postsLayout, post.getAuthor(), post, currentUser, app));  // Add posts to UI
+                .forEach(post -> addPostUI(postsLayout, post.getAuthor(), post, currentUser, app, primaryStage));  // Add posts to UI
     }
 
-    private static void addPostUI(VBox postsLayout, User friend, Post post, User currentUser, SocialMediaApp app) {
-        Label postLabel = new Label(friend.getUsername() + ": " + post.getContent());
-
+    private static void addPostUI(VBox postsLayout, User friend, Post post, User currentUser, SocialMediaApp app,Stage primaryStage) {
+        Hyperlink postLink = new Hyperlink(friend.getUsername() + ": " + post.getContent());
+        postLink.setOnAction(event -> {
+            // Assuming FriendProfileView.showUserProfile takes the primary stage and a user object
+            FriendProfileView.showUserProfile(primaryStage, friend, app);
+        });
         TextField commentField = new TextField();
         commentField.setPromptText("Enter a comment");
 
@@ -107,14 +110,14 @@ public class Home {
             String commentContent = commentField.getText();
             post.addComment(currentUser, commentContent);
             commentField.clear();
-            updateFriendsPostsView(postsLayout, currentUser, app);
+            updateFriendsPostsView(postsLayout, currentUser, app, primaryStage);
         });
 
         Button likeButton = new Button();
         post.isLiked(currentUser, likeButton);
         likeButton.setOnAction(e -> {
             post.toggleLike(currentUser, likeButton);
-            updateFriendsPostsView(postsLayout, currentUser, app);  // Refresh to show like status change
+            updateFriendsPostsView(postsLayout, currentUser, app, primaryStage);  // Refresh to show like status change
         });
 
         VBox commentsBox = new VBox(5);
@@ -130,7 +133,7 @@ public class Home {
         HBox commentBox = new HBox(5, commentField, commentButton);
         commentBox.setAlignment(Pos.CENTER_LEFT);
 
-        HBox postBox = new HBox(10, postLabel, likeButton);
+        HBox postBox = new HBox(10, postLink, likeButton);
         postBox.setAlignment(Pos.CENTER_LEFT);
 
         VBox postWithComments = new VBox(10, postBox, commentsBox, commentBox);
@@ -141,4 +144,3 @@ public class Home {
     }
 
 }
-

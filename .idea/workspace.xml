@@ -4,14 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6006537-081f-443d-ac75-b41f0213626e" name="Changes" comment=".">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/ObjectSerializer.java" afterDir="false" />
+    <list default="true" id="b6006537-081f-443d-ac75-b41f0213626e" name="Changes" comment="adding view and edit profile">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/FriendProfileView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/Networking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Networking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/SocialMediaApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/SocialMediaApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/Comment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Comment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/ObjectSerializer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/phase2/UserProfileView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/phase2/UserProfileView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,11 +23,17 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MavenImportPreferences">
@@ -47,24 +55,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.PrettyLoginForm.executor": "Run",
-    "Application.SocialMediaApp.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/mohamdtobgi/spring 2024/advanced programming/phase2/src/main/java/com/example/phase2",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.PrettyLoginForm.executor&quot;: &quot;Run&quot;,
+    &quot;Application.SocialMediaApp.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;scenebuilder&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mohamdtobgi/spring 2024/advanced programming/phase2/src/main/java/com/example/phase2&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.JavaFX&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/example/phase2" />
@@ -79,7 +89,12 @@
       <option name="presentableId" value="Default" />
       <updated>1714499318491</updated>
       <workItem from="1714499319699" duration="16026000" />
-      <workItem from="1714678645400" duration="11082000" />
+      <workItem from="1714678645400" duration="14838000" />
+      <workItem from="1715098413436" duration="724000" />
+      <workItem from="1715342010662" duration="696000" />
+      <workItem from="1715427296704" duration="1120000" />
+      <workItem from="1715461613784" duration="139000" />
+      <workItem from="1715465356028" duration="16288000" />
     </task>
     <task id="LOCAL-00001" summary="first changes">
       <option name="closed" value="true" />
@@ -129,11 +144,78 @@
       <option name="project" value="LOCAL" />
       <updated>1714683095896</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="posts view">
+      <option name="closed" value="true" />
+      <created>1714831462990</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1714831462990</updated>
+    </task>
+    <task id="LOCAL-00008" summary="logout">
+      <option name="closed" value="true" />
+      <created>1714834150427</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1714834150427</updated>
+    </task>
+    <task id="LOCAL-00009" summary="scroll functionality">
+      <option name="closed" value="true" />
+      <created>1715465781966</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1715465781967</updated>
+    </task>
+    <task id="LOCAL-00010" summary="sorting posts and comments by time made">
+      <option name="closed" value="true" />
+      <created>1715471404952</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1715471404952</updated>
+    </task>
+    <task id="LOCAL-00011" summary="sorting posts and comments by time made">
+      <option name="closed" value="true" />
+      <created>1715471416324</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1715471416324</updated>
+    </task>
+    <task id="LOCAL-00012" summary="adding view and edit profile">
+      <option name="closed" value="true" />
+      <created>1715472587413</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1715472587413</updated>
+    </task>
+    <task id="LOCAL-00013" summary="adding view and edit profile">
+      <option name="closed" value="true" />
+      <created>1715472714921</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1715472714921</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first changes" />
@@ -142,6 +224,15 @@
     <MESSAGE value="database that actually works" />
     <MESSAGE value="data.txt" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="posts view" />
+    <MESSAGE value="logout" />
+    <MESSAGE value="scroll functionality" />
+    <MESSAGE value="sorting posts and comments by time made" />
+    <MESSAGE value="adding view and edit profile" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding view and edit profile" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
